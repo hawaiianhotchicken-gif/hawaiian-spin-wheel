@@ -212,7 +212,7 @@ const App = () => {
                 {result.prize}
               </p>
               
-              <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }}>
+              <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }} className="code-container">>
                 <p className="code-label" style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
                 <p className="code-text" style={{ fontSize: '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: '16px', borderRadius: '8px', letterSpacing: '0.1em' }}>
                   {result.code}
@@ -258,40 +258,45 @@ const App = () => {
   return (
     <div style={{ minHeight: '100vh', background: '#000000', padding: '16px' }}>
       <style>{`
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
           .spin-button {
-            font-size: 20px !important;
-            padding: 20px 40px !important;
+            font-size: 18px !important;
+            padding: 18px 36px !important;
           }
           .congrats-title {
-            font-size: 24px !important;
+            font-size: 20px !important;
+            line-height: 1.2 !important;
           }
           .congrats-subtitle {
-            font-size: 16px !important;
-            padding: 6px 12px !important;
+            font-size: 14px !important;
+            padding: 4px 10px !important;
           }
           .prize-text {
-            font-size: 22px !important;
-            padding: 8px !important;
+            font-size: 18px !important;
+            padding: 6px !important;
+            line-height: 1.3 !important;
           }
           .code-label {
-            font-size: 12px !important;
+            font-size: 11px !important;
           }
           .code-text {
-            font-size: 20px !important;
-            padding: 8px 4px !important;
-            letter-spacing: 0.05em !important;
+            font-size: 16px !important;
+            padding: 6px 4px !important;
+            letter-spacing: 0.03em !important;
           }
           .order-button {
-            font-size: 16px !important;
-            padding: 14px 8px !important;
+            font-size: 14px !important;
+            padding: 12px 8px !important;
           }
           .win-card-padding {
-            padding: 16px !important;
+            padding: 12px !important;
           }
           .win-logo {
-            width: 120px !important;
-            height: 120px !important;
+            width: 100px !important;
+            height: 100px !important;
+          }
+          .code-container {
+            padding: 16px !important;
           }
         }
       `}</style>
