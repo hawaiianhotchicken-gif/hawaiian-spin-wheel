@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Gift, Clock, Flame } from 'lucide-react';
+import { Gift, Clock, Flame, ShoppingBag, Shirt, DollarSign, Percent, Fries as FriesIcon } from 'lucide-react';
 
 const App = () => {
   const [spinning, setSpinning] = useState(false);
@@ -10,16 +10,18 @@ const App = () => {
   const [canSpin, setCanSpin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
+  const [showWinScreen, setShowWinScreen] = useState(false);
+  const [confetti, setConfetti] = useState([]);
 
   const prizes = [
-    { label: '$100 Gift Card', weight: 0, color: '#FF6B35' },
-    { label: '10% Off Next Order', weight: 20, color: '#F7931E' },
-    { label: 'Free Side of Fries', weight: 15, color: '#FDB913' },
-    { label: 'Free Hawaiian Shirt', weight: 5, color: '#C1272D' },
-    { label: '$5 Off Next Order', weight: 5, color: '#FF6B35' },
-    { label: 'Free Drink', weight: 5, color: '#F7931E' },
-    { label: '5% Off Next Order', weight: 25, color: '#FDB913' },
-    { label: '5% Off Next Order', weight: 25, color: '#C1272D' }
+    { label: '$100 Gift Card', weight: 0, color: '#FF0000', icon: '🎁' },
+    { label: '10% Off Next Order', weight: 20, color: '#FFED00', icon: '💰' },
+    { label: 'Free Side of Fries', weight: 15, color: '#FF0000', icon: '🍟' },
+    { label: 'Free Hawaiian Shirt', weight: 5, color: '#000000', icon: '👕' },
+    { label: '$5 Off Next Order', weight: 5, color: '#FFED00', icon: '💵' },
+    { label: 'Free Drink', weight: 5, color: '#FF0000', icon: '🥤' },
+    { label: '5% Off Next Order', weight: 25, color: '#000000', icon: '🏷️' },
+    { label: '5% Off Next Order', weight: 25, color: '#FFED00', icon: '🏷️' }
   ];
 
   useEffect(() => {
@@ -35,6 +37,22 @@ const App = () => {
     setCustomerPhone(phone);
     loadSpinData(phone);
   }, []);
+
+  useEffect(() => {
+    if (showWinScreen) {
+      const confettiPieces = [];
+      for (let i = 0; i < 100; i++) {
+        confettiPieces.push({
+          id: i,
+          left: Math.random() * 100,
+          delay: Math.random() * 3,
+          duration: 3 + Math.random() * 2,
+          color: ['#FF0000', '#FFED00', '#FFA500'][Math.floor(Math.random() * 3)]
+        });
+      }
+      setConfetti(confettiPieces);
+    }
+  }, [showWinScreen]);
 
   const loadSpinData = async (phone) => {
     try {
@@ -97,6 +115,7 @@ const App = () => {
       setResult(winData);
       setSpinning(false);
       setCanSpin(false);
+      setShowWinScreen(true);
       
       const newHistory = [...history, winData];
       
@@ -125,63 +144,155 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 flex items-center justify-center">
-        <div className="text-white text-2xl font-bold">Loading...</div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-yellow-400 text-2xl font-bold animate-pulse">Loading...</div>
       </div>
     );
   }
 
   if (!customerPhone) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl p-8 text-center max-w-md">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h1>
-          <p className="text-gray-600">Please use the link from your text message to access the spin wheel.</p>
+      <div className="min-h-screen bg-black flex items-center justify-center p-4">
+        <div className="bg-gradient-to-br from-red-600 to-black border-4 border-yellow-400 rounded-2xl p-8 text-center max-w-md">
+          <h1 className="text-3xl font-bold text-yellow-400 mb-4">ACCESS DENIED</h1>
+          <p className="text-white">Please use the link from your text message to access the spin wheel.</p>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 p-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8 pt-8">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Flame className="text-yellow-300" size={32} />
-            <h1 className="text-4xl font-bold text-white">Hawaiian Hot Chicken</h1>
-            <Flame className="text-yellow-300" size={32} />
+  if (showWinScreen && result) {
+    return (
+      <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center p-4">
+        {/* Confetti Animation */}
+        {confetti.map((piece) => (
+          <div
+            key={piece.id}
+            className="absolute w-3 h-3 animate-fall"
+            style={{
+              left: `${piece.left}%`,
+              top: '-20px',
+              backgroundColor: piece.color,
+              animationDelay: `${piece.delay}s`,
+              animationDuration: `${piece.duration}s`,
+              transform: 'rotate(45deg)'
+            }}
+          />
+        ))}
+
+        <div className="relative z-10 max-w-2xl w-full">
+          {/* Logo */}
+          <div className="text-center mb-8">
+            <img 
+              src="https://www.hawaiianhotchicken.com/uploads/1/4/4/0/144062827/published/hhc-3d-logo-color-bg.png"
+              alt="Hawaiian Hot Chicken"
+              className="w-48 h-48 mx-auto mb-4 animate-bounce"
+            />
           </div>
-          <p className="text-yellow-100 text-lg">🎁 VIP Text Subscriber Spin 🎁</p>
+
+          {/* Win Card */}
+          <div className="bg-gradient-to-br from-yellow-400 via-red-600 to-black border-8 border-yellow-400 rounded-3xl p-8 shadow-2xl transform scale-105">
+            <div className="text-center mb-6">
+              <h1 className="text-6xl font-black text-white mb-2 drop-shadow-lg" style={{ textShadow: '4px 4px 0px #FF0000' }}>
+                🎉 CONGRATULATIONS! 🎉
+              </h1>
+              <p className="text-3xl font-bold text-black bg-yellow-400 inline-block px-6 py-2 rounded-full">
+                YOU JUST WON
+              </p>
+            </div>
+
+            <div className="bg-black border-4 border-yellow-400 rounded-2xl p-8 mb-6">
+              <p className="text-5xl font-black text-center text-yellow-400 mb-6" style={{ textShadow: '3px 3px 0px #FF0000' }}>
+                {result.prize}
+              </p>
+              
+              <div className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-xl p-6 border-4 border-white">
+                <p className="text-lg text-white text-center mb-2 font-bold">YOUR REDEMPTION CODE</p>
+                <p className="text-5xl font-mono font-black text-center text-black bg-yellow-400 py-4 rounded-lg tracking-widest">
+                  {result.code}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <a
+                href="https://www.hawaiianhotchicken.com/order"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-gradient-to-r from-red-600 to-yellow-400 text-black text-2xl font-black py-6 rounded-2xl text-center border-4 border-black shadow-xl transform hover:scale-105 transition"
+              >
+                🔥 ORDER ONLINE NOW 🔥
+              </a>
+              
+              <button
+                onClick={() => setShowWinScreen(false)}
+                className="block w-full bg-black text-yellow-400 text-xl font-bold py-4 rounded-2xl text-center border-4 border-yellow-400 hover:bg-yellow-400 hover:text-black transition"
+              >
+                Back to Wheel
+              </button>
+            </div>
+
+            <p className="text-center text-white mt-6 text-sm font-bold">
+              📸 Screenshot this code and show it when ordering!
+            </p>
+          </div>
         </div>
 
-        {result && (
-          <div className="bg-white rounded-2xl p-6 mb-6 shadow-2xl text-center transform animate-bounce">
-            <Gift className="mx-auto text-red-600 mb-3" size={48} />
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">🎉 You Won! 🎉</h2>
-            <p className="text-2xl font-bold text-red-600 mb-4">{result.prize}</p>
-            <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-4 mb-4">
-              <p className="text-sm text-gray-600 mb-1">Your Redemption Code:</p>
-              <p className="text-3xl font-mono font-bold text-red-600 tracking-wider">{result.code}</p>
-            </div>
-            <p className="text-sm text-gray-600">Screenshot this code and show it when ordering!</p>
-          </div>
-        )}
+        <style jsx>{`
+          @keyframes fall {
+            to {
+              transform: translateY(100vh) rotate(360deg);
+              opacity: 0;
+            }
+          }
+          .animate-fall {
+            animation: fall linear forwards;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
-        <div className="bg-white rounded-2xl p-8 shadow-2xl mb-6">
+  return (
+    <div className="min-h-screen bg-black p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Logo Header */}
+        <div className="text-center mb-8 pt-8">
+          <img 
+            src="https://www.hawaiianhotchicken.com/uploads/1/4/4/0/144062827/published/hhc-3d-logo-color-bg.png"
+            alt="Hawaiian Hot Chicken"
+            className="w-40 h-40 mx-auto mb-4"
+          />
+          <h1 className="text-5xl font-black text-yellow-400 mb-2" style={{ textShadow: '3px 3px 0px #FF0000' }}>
+            SPIN TO WIN
+          </h1>
+          <p className="text-2xl font-bold text-white bg-red-600 inline-block px-6 py-2 rounded-full border-4 border-yellow-400">
+            🎁 VIP EXCLUSIVE 🎁
+          </p>
+        </div>
+
+        {/* Wheel Container */}
+        <div className="bg-gradient-to-br from-red-600 via-black to-red-600 rounded-3xl p-8 shadow-2xl mb-6 border-8 border-yellow-400">
           <div className="relative w-full max-w-md mx-auto">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 z-20">
-              <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[30px] border-l-transparent border-r-transparent border-t-white drop-shadow-lg"></div>
+            {/* Pointer */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 z-20">
+              <div className="w-0 h-0 border-l-[25px] border-r-[25px] border-t-[40px] border-l-transparent border-r-transparent border-t-yellow-400 drop-shadow-2xl"></div>
             </div>
             
-            <div className="relative aspect-square">
+            {/* Glossy Wheel */}
+            <div className="relative aspect-square rounded-full shadow-2xl">
               <svg
-                className="w-full h-full"
+                className="w-full h-full drop-shadow-2xl"
                 viewBox="0 0 200 200"
                 style={{
                   transform: `rotate(${rotation}deg)`,
-                  transition: spinning ? 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)' : 'none'
+                  transition: spinning ? 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)' : 'none',
+                  filter: 'drop-shadow(0 0 20px rgba(255, 237, 0, 0.5))'
                 }}
               >
+                {/* Outer ring */}
+                <circle cx="100" cy="100" r="98" fill="none" stroke="#FFED00" strokeWidth="4" />
+                
                 {prizes.map((prize, i) => {
                   const angle = (360 / prizes.length) * i;
                   const nextAngle = (360 / prizes.length) * (i + 1);
@@ -192,28 +303,54 @@ const App = () => {
                   const y2 = 100 + 95 * Math.sin((nextAngle - 90) * Math.PI / 180);
                   
                   const midAngle = (angle + nextAngle) / 2;
-                  const textX = 100 + 60 * Math.cos((midAngle - 90) * Math.PI / 180);
-                  const textY = 100 + 60 * Math.sin((midAngle - 90) * Math.PI / 180);
+                  const textX = 100 + 65 * Math.cos((midAngle - 90) * Math.PI / 180);
+                  const textY = 100 + 65 * Math.sin((midAngle - 90) * Math.PI / 180);
+                  const iconX = 100 + 45 * Math.cos((midAngle - 90) * Math.PI / 180);
+                  const iconY = 100 + 45 * Math.sin((midAngle - 90) * Math.PI / 180);
                   
                   return (
                     <g key={i}>
+                      {/* Segment */}
                       <path
                         d={`M 100 100 L ${x1} ${y1} A 95 95 0 0 1 ${x2} ${y2} Z`}
                         fill={prize.color}
-                        stroke="white"
-                        strokeWidth="2"
+                        stroke="#FFED00"
+                        strokeWidth="3"
                       />
+                      
+                      {/* Glossy overlay */}
+                      <path
+                        d={`M 100 100 L ${x1} ${y1} A 95 95 0 0 1 ${x2} ${y2} Z`}
+                        fill="url(#glossGradient)"
+                        opacity="0.3"
+                      />
+                      
+                      {/* Icon */}
+                      <text
+                        x={iconX}
+                        y={iconY}
+                        fontSize="20"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        transform={`rotate(${midAngle}, ${iconX}, ${iconY})`}
+                      >
+                        {prize.icon}
+                      </text>
+                      
+                      {/* Text */}
                       <text
                         x={textX}
                         y={textY}
-                        fill="white"
-                        fontSize="7"
-                        fontWeight="bold"
+                        fill={prize.color === '#000000' ? '#FFED00' : '#000000'}
+                        fontSize="6"
+                        fontWeight="900"
                         textAnchor="middle"
                         transform={`rotate(${midAngle}, ${textX}, ${textY})`}
+                        stroke={prize.color === '#000000' ? '#000000' : '#FFED00'}
+                        strokeWidth="0.5"
                       >
                         {prize.label.split(' ').map((word, wi) => (
-                          <tspan key={wi} x={textX} dy={wi === 0 ? 0 : 8}>
+                          <tspan key={wi} x={textX} dy={wi === 0 ? -4 : 7}>
                             {word}
                           </tspan>
                         ))}
@@ -221,55 +358,74 @@ const App = () => {
                     </g>
                   );
                 })}
-                <circle cx="100" cy="100" r="15" fill="white" stroke="#C1272D" strokeWidth="3" />
+                
+                {/* Glossy gradient definition */}
+                <defs>
+                  <radialGradient id="glossGradient" cx="30%" cy="30%">
+                    <stop offset="0%" stopColor="white" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="white" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+                
+                {/* Center button */}
+                <circle cx="100" cy="100" r="20" fill="#FFED00" stroke="#FF0000" strokeWidth="4" />
+                <circle cx="100" cy="100" r="15" fill="#FF0000" />
+                <text x="100" y="105" fontSize="16" textAnchor="middle" fill="#FFED00" fontWeight="bold">
+                  🔥
+                </text>
               </svg>
             </div>
           </div>
 
+          {/* Spin Button */}
           <div className="text-center mt-8">
             {canSpin ? (
               <button
                 onClick={spin}
                 disabled={spinning}
-                className={`px-12 py-4 rounded-full text-xl font-bold text-white shadow-lg transform transition ${
+                className={`px-16 py-6 rounded-2xl text-3xl font-black border-4 shadow-2xl transform transition ${
                   spinning
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-red-600 to-orange-500 hover:scale-105 hover:shadow-xl active:scale-95'
+                    ? 'bg-gray-600 text-gray-400 border-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-red-600 to-yellow-400 text-black border-yellow-400 hover:scale-110 hover:shadow-yellow-400/50 active:scale-95 animate-pulse'
                 }`}
+                style={{ textShadow: spinning ? 'none' : '2px 2px 0px rgba(0,0,0,0.5)' }}
               >
-                {spinning ? 'SPINNING...' : '🔥 SPIN NOW 🔥'}
+                {spinning ? '🌀 SPINNING...' : '🔥 SPIN NOW! 🔥'}
               </button>
             ) : (
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 text-red-600 mb-2">
-                  <Clock size={24} />
-                  <span className="text-xl font-bold">
-                    Next spin in {getDaysUntilNextSpin()} days
+              <div className="text-center bg-gradient-to-r from-red-600 to-black border-4 border-yellow-400 rounded-2xl p-6">
+                <div className="flex items-center justify-center gap-3 text-yellow-400 mb-2">
+                  <Clock size={32} />
+                  <span className="text-3xl font-black">
+                    {getDaysUntilNextSpin()} DAYS
                   </span>
                 </div>
-                <p className="text-gray-600 text-sm">Come back in 2 weeks for another spin!</p>
+                <p className="text-white text-xl font-bold">Until your next spin!</p>
               </div>
             )}
           </div>
         </div>
 
+        {/* Win History */}
         {history.length > 0 && (
-          <div className="bg-white rounded-2xl p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Gift size={24} className="text-red-600" />
-              Your Win History
+          <div className="bg-gradient-to-br from-red-600 to-black rounded-3xl p-6 shadow-2xl border-4 border-yellow-400">
+            <h3 className="text-2xl font-black text-yellow-400 mb-4 flex items-center gap-2">
+              <Gift size={28} />
+              YOUR WINS
             </h3>
             <div className="space-y-3">
               {history.slice().reverse().map((win, i) => (
-                <div key={i} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                <div key={i} className="bg-black border-2 border-yellow-400 rounded-xl p-4">
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-bold text-red-600">{win.prize}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-bold text-yellow-400 text-lg">{win.prize}</p>
+                      <p className="text-xs text-gray-400">
                         {new Date(win.date).toLocaleDateString()}
                       </p>
                     </div>
-                    <p className="font-mono text-sm font-bold text-gray-700">{win.code}</p>
+                    <p className="font-mono text-sm font-bold text-white bg-red-600 px-3 py-1 rounded border-2 border-yellow-400">
+                      {win.code}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -277,11 +433,12 @@ const App = () => {
           </div>
         )}
 
+        {/* Footer */}
         <div className="text-center mt-8 pb-8">
-          <p className="text-white text-sm">
-            VIP text subscribers get one spin every 2 weeks!
+          <p className="text-yellow-400 text-lg font-bold">
+            🎁 VIP TEXT SUBSCRIBERS SPIN EVERY 2 WEEKS! 🎁
           </p>
-          <p className="text-yellow-200 text-xs mt-2">
+          <p className="text-gray-400 text-sm mt-2">
             Terms apply. One spin per customer per 2-week period.
           </p>
         </div>
