@@ -99,7 +99,11 @@ const App = () => {
     setSpinning(true);
     const prizeIndex = getWeightedPrize();
     const segmentAngle = 360 / prizes.length;
-    const targetRotation = 360 * 5 + (prizeIndex * segmentAngle) + (segmentAngle / 2);
+    
+    // Calculate exact rotation to land pointer on the prize
+    // Pointer is at top (0 degrees), so we need to rotate the prize to align with it
+    const prizeAngle = prizeIndex * segmentAngle;
+    const targetRotation = 360 * 5 + (360 - prizeAngle);
     
     setRotation(targetRotation);
     
@@ -191,22 +195,22 @@ const App = () => {
 
           <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: '8px solid #FFED00', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <h1 style={{ fontSize: '48px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
+              <h1 className="congrats-title" style={{ fontSize: '48px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
                 🎉 CONGRATULATIONS! 🎉
               </h1>
-              <p style={{ fontSize: '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: '8px 24px', borderRadius: '9999px' }}>
+              <p className="congrats-subtitle" style={{ fontSize: '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: '8px 24px', borderRadius: '9999px' }}>
                 YOU JUST WON
               </p>
             </div>
 
             <div style={{ background: '#000000', border: '4px solid #FFED00', borderRadius: '16px', padding: '32px', marginBottom: '24px' }}>
-              <p style={{ fontSize: '40px', fontWeight: '900', textAlign: 'center', color: '#FFED00', marginBottom: '24px', textShadow: '3px 3px 0px #FF0000' }}>
+              <p className="prize-text" style={{ fontSize: '40px', fontWeight: '900', textAlign: 'center', color: '#FFED00', marginBottom: '24px', textShadow: '3px 3px 0px #FF0000' }}>
                 {result.prize}
               </p>
               
               <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }}>
-                <p style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
-                <p style={{ fontSize: '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: '16px', borderRadius: '8px', letterSpacing: '0.1em' }}>
+                <p className="code-label" style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
+                <p className="code-text" style={{ fontSize: '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: '16px', borderRadius: '8px', letterSpacing: '0.1em' }}>
                   {result.code}
                 </p>
               </div>
@@ -217,6 +221,7 @@ const App = () => {
                 href="https://www.hawaiianhotchicken.com/order"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="order-button"
                 style={{ display: 'block', width: '100%', background: 'linear-gradient(to right, #FF0000, #FFED00)', color: '#000000', fontSize: '24px', fontWeight: '900', padding: '24px', borderRadius: '16px', textAlign: 'center', border: '4px solid #000000', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', textDecoration: 'none' }}>
                 🔥 ORDER ONLINE NOW 🔥
               </a>
@@ -253,6 +258,27 @@ const App = () => {
           .spin-button {
             font-size: 20px !important;
             padding: 20px 40px !important;
+          }
+          .congrats-title {
+            font-size: 32px !important;
+          }
+          .congrats-subtitle {
+            font-size: 18px !important;
+            padding: 6px 16px !important;
+          }
+          .prize-text {
+            font-size: 28px !important;
+          }
+          .code-label {
+            font-size: 14px !important;
+          }
+          .code-text {
+            font-size: 24px !important;
+            padding: 12px !important;
+          }
+          .order-button {
+            font-size: 18px !important;
+            padding: 16px !important;
           }
         }
       `}</style>
