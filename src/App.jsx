@@ -100,14 +100,13 @@ const App = () => {
     const prizeIndex = getWeightedPrize();
     const segmentAngle = 360 / prizes.length;
     
-    // The pointer is at top (12 o'clock position)
-    // We want the CENTER of the winning segment to align with the pointer
-    // First segment starts at 0 degrees, so we calculate from there
-    const segmentCenter = (prizeIndex * segmentAngle) + (segmentAngle / 2);
+    // Pointer is at the TOP (270 degrees in our coordinate system since wheel starts at right)
+    // Calculate how much to rotate to bring the winning segment's CENTER under the pointer
+    const offsetToCenter = segmentAngle / 2; // Center of segment
+    const targetAngle = (prizeIndex * segmentAngle) + offsetToCenter;
     
-    // We need to rotate so this segment's center is at the top (0/360 degrees)
-    // Since we're rotating the wheel, we rotate BACKWARDS to bring the prize to the top
-    const targetRotation = 360 * 5 - segmentCenter + 90; // +90 to account for SVG starting position
+    // Rotate 5 full spins plus the amount needed to align the prize at top
+    const targetRotation = (360 * 5) + targetAngle;
     
     setRotation(targetRotation);
     
@@ -193,6 +192,7 @@ const App = () => {
             <img 
               src="https://i.imgur.com/cEIZbpo.png"
               alt="Hawaiian Hot Chicken"
+              className="win-logo"
               style={{ width: '200px', height: '200px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
             />
           </div>
@@ -264,28 +264,34 @@ const App = () => {
             padding: 20px 40px !important;
           }
           .congrats-title {
-            font-size: 8vw !important;
+            font-size: 24px !important;
           }
           .congrats-subtitle {
-            font-size: 5vw !important;
-            padding: 6px 16px !important;
+            font-size: 16px !important;
+            padding: 6px 12px !important;
           }
           .prize-text {
-            font-size: 7vw !important;
+            font-size: 22px !important;
+            padding: 8px !important;
           }
           .code-label {
-            font-size: 3.5vw !important;
+            font-size: 12px !important;
           }
           .code-text {
-            font-size: 6vw !important;
-            padding: 12px 8px !important;
+            font-size: 20px !important;
+            padding: 8px 4px !important;
+            letter-spacing: 0.05em !important;
           }
           .order-button {
-            font-size: 5vw !important;
-            padding: 16px 12px !important;
+            font-size: 16px !important;
+            padding: 14px 8px !important;
           }
           .win-card-padding {
             padding: 16px !important;
+          }
+          .win-logo {
+            width: 120px !important;
+            height: 120px !important;
           }
         }
       `}</style>
