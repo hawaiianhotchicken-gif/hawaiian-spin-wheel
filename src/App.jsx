@@ -183,7 +183,7 @@ const App = () => {
         <div style={{ position: 'relative', zIndex: 10, maxWidth: '672px', width: '100%' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <img 
-              src="https://images.squarespace-cdn.com/content/v1/5e1b1e61c2e7e8531ba83e29/1632514549663-TVFVQG8K95HRRXNGMRYD/HHC+3D+Logo+Color+BG.png"
+              src="https://i.imgur.com/8BgD98D.jpeg"
               alt="Hawaiian Hot Chicken"
               style={{ width: '200px', height: '200px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
             />
@@ -252,7 +252,7 @@ const App = () => {
         {/* Logo Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px', paddingTop: '32px' }}>
           <img 
-            src="https://images.squarespace-cdn.com/content/v1/5e1b1e61c2e7e8531ba83e29/1632514549663-TVFVQG8K95HRRXNGMRYD/HHC+3D+Logo+Color+BG.png"
+            src="https://i.imgur.com/8BgD98D.jpeg"
             alt="Hawaiian Hot Chicken"
             style={{ width: '180px', height: '180px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
           />
