@@ -183,7 +183,7 @@ const App = () => {
         <div style={{ position: 'relative', zIndex: 10, maxWidth: '672px', width: '100%' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <img 
-              src="https://i.imgur.com/8BgD98D.jpeg"
+              src="https://i.imgur.com/cEIZbpo.png"
               alt="Hawaiian Hot Chicken"
               style={{ width: '200px', height: '200px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
             />
@@ -248,11 +248,19 @@ const App = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000000', padding: '16px' }}>
+      <style>{`
+        @media (max-width: 480px) {
+          .spin-button {
+            font-size: 20px !important;
+            padding: 20px 40px !important;
+          }
+        }
+      `}</style>
       <div style={{ maxWidth: '672px', margin: '0 auto' }}>
         {/* Logo Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px', paddingTop: '32px' }}>
           <img 
-            src="https://i.imgur.com/8BgD98D.jpeg"
+            src="https://i.imgur.com/cEIZbpo.png"
             alt="Hawaiian Hot Chicken"
             style={{ width: '180px', height: '180px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
           />
@@ -367,6 +375,7 @@ const App = () => {
               <button
                 onClick={spin}
                 disabled={spinning}
+                className="spin-button"
                 style={{
                   padding: '24px 64px',
                   borderRadius: '16px',
@@ -377,7 +386,8 @@ const App = () => {
                   cursor: spinning ? 'not-allowed' : 'pointer',
                   background: spinning ? '#4B5563' : 'linear-gradient(to right, #FF0000, #FFED00)',
                   color: spinning ? '#9CA3AF' : '#000000',
-                  textShadow: spinning ? 'none' : '2px 2px 0px rgba(0,0,0,0.5)'
+                  textShadow: spinning ? 'none' : '2px 2px 0px rgba(0,0,0,0.5)',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {spinning ? '🌀 SPINNING...' : '🔥 SPIN NOW! 🔥'}
