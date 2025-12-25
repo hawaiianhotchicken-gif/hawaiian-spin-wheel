@@ -100,10 +100,14 @@ const App = () => {
     const prizeIndex = getWeightedPrize();
     const segmentAngle = 360 / prizes.length;
     
-    // Calculate exact rotation to land pointer on the prize
-    // Pointer is at top (0 degrees), so we need to rotate the prize to align with it
-    const prizeAngle = prizeIndex * segmentAngle;
-    const targetRotation = 360 * 5 + (360 - prizeAngle);
+    // The pointer is at top (12 o'clock position)
+    // We want the CENTER of the winning segment to align with the pointer
+    // First segment starts at 0 degrees, so we calculate from there
+    const segmentCenter = (prizeIndex * segmentAngle) + (segmentAngle / 2);
+    
+    // We need to rotate so this segment's center is at the top (0/360 degrees)
+    // Since we're rotating the wheel, we rotate BACKWARDS to bring the prize to the top
+    const targetRotation = 360 * 5 - segmentCenter + 90; // +90 to account for SVG starting position
     
     setRotation(targetRotation);
     
@@ -193,7 +197,7 @@ const App = () => {
             />
           </div>
 
-          <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: '8px solid #FFED00', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+          <div className="win-card-padding" style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: '8px solid #FFED00', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <h1 className="congrats-title" style={{ fontSize: '48px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
                 🎉 CONGRATULATIONS! 🎉
@@ -260,24 +264,27 @@ const App = () => {
             padding: 20px 40px !important;
           }
           .congrats-title {
-            font-size: 32px !important;
+            font-size: 8vw !important;
           }
           .congrats-subtitle {
-            font-size: 18px !important;
+            font-size: 5vw !important;
             padding: 6px 16px !important;
           }
           .prize-text {
-            font-size: 28px !important;
+            font-size: 7vw !important;
           }
           .code-label {
-            font-size: 14px !important;
+            font-size: 3.5vw !important;
           }
           .code-text {
-            font-size: 24px !important;
-            padding: 12px !important;
+            font-size: 6vw !important;
+            padding: 12px 8px !important;
           }
           .order-button {
-            font-size: 18px !important;
+            font-size: 5vw !important;
+            padding: 16px 12px !important;
+          }
+          .win-card-padding {
             padding: 16px !important;
           }
         }
