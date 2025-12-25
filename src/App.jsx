@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Gift, Clock, Flame, ShoppingBag, Shirt, DollarSign, Percent, Fries as FriesIcon } from 'lucide-react';
+import { Gift, Clock } from 'lucide-react';
 
 const App = () => {
   const [spinning, setSpinning] = useState(false);
@@ -14,14 +14,14 @@ const App = () => {
   const [confetti, setConfetti] = useState([]);
 
   const prizes = [
-    { label: '$100 Gift Card', weight: 0, color: '#FF0000', icon: '🎁' },
-    { label: '10% Off Next Order', weight: 20, color: '#FFED00', icon: '💰' },
-    { label: 'Free Side of Fries', weight: 15, color: '#FF0000', icon: '🍟' },
-    { label: 'Free Hawaiian Shirt', weight: 5, color: '#000000', icon: '👕' },
-    { label: '$5 Off Next Order', weight: 5, color: '#FFED00', icon: '💵' },
-    { label: 'Free Drink', weight: 5, color: '#FF0000', icon: '🥤' },
-    { label: '5% Off Next Order', weight: 25, color: '#000000', icon: '🏷️' },
-    { label: '5% Off Next Order', weight: 25, color: '#FFED00', icon: '🏷️' }
+    { label: '$100 GIFT CARD', weight: 0, color: '#FF0000' },
+    { label: '10% OFF', weight: 20, color: '#FFED00' },
+    { label: 'FREE FRIES', weight: 15, color: '#FF0000' },
+    { label: 'FREE SHIRT', weight: 5, color: '#000000' },
+    { label: '$5 OFF', weight: 5, color: '#FFED00' },
+    { label: 'FREE DRINK', weight: 5, color: '#FF0000' },
+    { label: '5% OFF', weight: 25, color: '#000000' },
+    { label: '5% OFF', weight: 25, color: '#FFED00' }
   ];
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const App = () => {
   useEffect(() => {
     if (showWinScreen) {
       const confettiPieces = [];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         confettiPieces.push({
           id: i,
           left: Math.random() * 100,
@@ -144,18 +144,18 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-yellow-400 text-2xl font-bold animate-pulse">Loading...</div>
+      <div style={{ minHeight: '100vh', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: '#FFED00', fontSize: '24px', fontWeight: 'bold' }}>Loading...</div>
       </div>
     );
   }
 
   if (!customerPhone) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4">
-        <div className="bg-gradient-to-br from-red-600 to-black border-4 border-yellow-400 rounded-2xl p-8 text-center max-w-md">
-          <h1 className="text-3xl font-bold text-yellow-400 mb-4">ACCESS DENIED</h1>
-          <p className="text-white">Please use the link from your text message to access the spin wheel.</p>
+      <div style={{ minHeight: '100vh', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+        <div style={{ background: 'linear-gradient(to bottom right, #FF0000, #000000)', border: '4px solid #FFED00', borderRadius: '16px', padding: '32px', textAlign: 'center', maxWidth: '448px' }}>
+          <h1 style={{ fontSize: '30px', fontWeight: 'bold', color: '#FFED00', marginBottom: '16px' }}>ACCESS DENIED</h1>
+          <p style={{ color: 'white' }}>Please use the link from your text message to access the spin wheel.</p>
         </div>
       </div>
     );
@@ -163,90 +163,83 @@ const App = () => {
 
   if (showWinScreen && result) {
     return (
-      <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center p-4">
-        {/* Confetti Animation */}
+      <div style={{ minHeight: '100vh', background: '#000000', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
         {confetti.map((piece) => (
           <div
             key={piece.id}
-            className="absolute w-3 h-3 animate-fall"
             style={{
+              position: 'absolute',
+              width: '12px',
+              height: '12px',
+              backgroundColor: piece.color,
               left: `${piece.left}%`,
               top: '-20px',
-              backgroundColor: piece.color,
-              animationDelay: `${piece.delay}s`,
-              animationDuration: `${piece.duration}s`,
+              animation: `fall ${piece.duration}s linear ${piece.delay}s forwards`,
               transform: 'rotate(45deg)'
             }}
           />
         ))}
 
-        <div className="relative z-10 max-w-2xl w-full">
-          {/* Logo */}
-          <div className="text-center mb-8">
+        <div style={{ position: 'relative', zIndex: 10, maxWidth: '672px', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <img 
-              src="https://www.hawaiianhotchicken.com/uploads/1/4/4/0/144062827/published/hhc-3d-logo-color-bg.png"
+              src="https://images.squarespace-cdn.com/content/v1/5e1b1e61c2e7e8531ba83e29/1632514549663-TVFVQG8K95HRRXNGMRYD/HHC+3D+Logo+Color+BG.png"
               alt="Hawaiian Hot Chicken"
-              className="w-48 h-48 mx-auto mb-4 animate-bounce"
+              style={{ width: '200px', height: '200px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
             />
           </div>
 
-          {/* Win Card */}
-          <div className="bg-gradient-to-br from-yellow-400 via-red-600 to-black border-8 border-yellow-400 rounded-3xl p-8 shadow-2xl transform scale-105">
-            <div className="text-center mb-6">
-              <h1 className="text-6xl font-black text-white mb-2 drop-shadow-lg" style={{ textShadow: '4px 4px 0px #FF0000' }}>
+          <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: '8px solid #FFED00', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '48px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
                 🎉 CONGRATULATIONS! 🎉
               </h1>
-              <p className="text-3xl font-bold text-black bg-yellow-400 inline-block px-6 py-2 rounded-full">
+              <p style={{ fontSize: '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: '8px 24px', borderRadius: '9999px' }}>
                 YOU JUST WON
               </p>
             </div>
 
-            <div className="bg-black border-4 border-yellow-400 rounded-2xl p-8 mb-6">
-              <p className="text-5xl font-black text-center text-yellow-400 mb-6" style={{ textShadow: '3px 3px 0px #FF0000' }}>
+            <div style={{ background: '#000000', border: '4px solid #FFED00', borderRadius: '16px', padding: '32px', marginBottom: '24px' }}>
+              <p style={{ fontSize: '40px', fontWeight: '900', textAlign: 'center', color: '#FFED00', marginBottom: '24px', textShadow: '3px 3px 0px #FF0000' }}>
                 {result.prize}
               </p>
               
-              <div className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-xl p-6 border-4 border-white">
-                <p className="text-lg text-white text-center mb-2 font-bold">YOUR REDEMPTION CODE</p>
-                <p className="text-5xl font-mono font-black text-center text-black bg-yellow-400 py-4 rounded-lg tracking-widest">
+              <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }}>
+                <p style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
+                <p style={{ fontSize: '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: '16px', borderRadius: '8px', letterSpacing: '0.1em' }}>
                   {result.code}
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div style={{ marginBottom: '16px' }}>
               <a
                 href="https://www.hawaiianhotchicken.com/order"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-gradient-to-r from-red-600 to-yellow-400 text-black text-2xl font-black py-6 rounded-2xl text-center border-4 border-black shadow-xl transform hover:scale-105 transition"
-              >
+                style={{ display: 'block', width: '100%', background: 'linear-gradient(to right, #FF0000, #FFED00)', color: '#000000', fontSize: '24px', fontWeight: '900', padding: '24px', borderRadius: '16px', textAlign: 'center', border: '4px solid #000000', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', textDecoration: 'none' }}>
                 🔥 ORDER ONLINE NOW 🔥
               </a>
-              
-              <button
-                onClick={() => setShowWinScreen(false)}
-                className="block w-full bg-black text-yellow-400 text-xl font-bold py-4 rounded-2xl text-center border-4 border-yellow-400 hover:bg-yellow-400 hover:text-black transition"
-              >
-                Back to Wheel
-              </button>
             </div>
+            
+            <button
+              onClick={() => setShowWinScreen(false)}
+              style={{ display: 'block', width: '100%', background: '#000000', color: '#FFED00', fontSize: '20px', fontWeight: 'bold', padding: '16px', borderRadius: '16px', textAlign: 'center', border: '4px solid #FFED00', cursor: 'pointer' }}>
+              Back to Wheel
+            </button>
 
-            <p className="text-center text-white mt-6 text-sm font-bold">
+            <p style={{ textAlign: 'center', color: 'white', marginTop: '24px', fontSize: '14px', fontWeight: 'bold' }}>
               📸 Screenshot this code and show it when ordering!
             </p>
           </div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           @keyframes fall {
             to {
               transform: translateY(100vh) rotate(360deg);
               opacity: 0;
             }
-          }
-          .animate-fall {
-            animation: fall linear forwards;
           }
         `}</style>
       </div>
@@ -254,44 +247,48 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black p-4">
-      <div className="max-w-2xl mx-auto">
+    <div style={{ minHeight: '100vh', background: '#000000', padding: '16px' }}>
+      <div style={{ maxWidth: '672px', margin: '0 auto' }}>
         {/* Logo Header */}
-        <div className="text-center mb-8 pt-8">
+        <div style={{ textAlign: 'center', marginBottom: '32px', paddingTop: '32px' }}>
           <img 
-            src="https://www.hawaiianhotchicken.com/uploads/1/4/4/0/144062827/published/hhc-3d-logo-color-bg.png"
+            src="https://images.squarespace-cdn.com/content/v1/5e1b1e61c2e7e8531ba83e29/1632514549663-TVFVQG8K95HRRXNGMRYD/HHC+3D+Logo+Color+BG.png"
             alt="Hawaiian Hot Chicken"
-            className="w-40 h-40 mx-auto mb-4"
+            style={{ width: '180px', height: '180px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
           />
-          <h1 className="text-5xl font-black text-yellow-400 mb-2" style={{ textShadow: '3px 3px 0px #FF0000' }}>
+          <h1 style={{ fontSize: '56px', fontWeight: '900', color: '#FFED00', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000', textAlign: 'center' }}>
             SPIN TO WIN
           </h1>
-          <p className="text-2xl font-bold text-white bg-red-600 inline-block px-6 py-2 rounded-full border-4 border-yellow-400">
+          <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', background: '#FF0000', display: 'inline-block', padding: '8px 24px', borderRadius: '9999px', border: '4px solid #FFED00' }}>
             🎁 VIP EXCLUSIVE 🎁
           </p>
         </div>
 
         {/* Wheel Container */}
-        <div className="bg-gradient-to-br from-red-600 via-black to-red-600 rounded-3xl p-8 shadow-2xl mb-6 border-8 border-yellow-400">
-          <div className="relative w-full max-w-md mx-auto">
+        <div style={{ background: 'linear-gradient(to bottom right, #FF0000, #000000, #FF0000)', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', marginBottom: '24px', border: '8px solid #FFED00' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '400px', margin: '0 auto' }}>
             {/* Pointer */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 z-20">
-              <div className="w-0 h-0 border-l-[25px] border-r-[25px] border-t-[40px] border-l-transparent border-r-transparent border-t-yellow-400 drop-shadow-2xl"></div>
+            <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%) translateY(-24px)', zIndex: 20 }}>
+              <div style={{ width: '0', height: '0', borderLeft: '25px solid transparent', borderRight: '25px solid transparent', borderTop: '40px solid #FFED00', filter: 'drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15))' }}></div>
             </div>
             
             {/* Glossy Wheel */}
-            <div className="relative aspect-square rounded-full shadow-2xl">
+            <div style={{ position: 'relative', paddingBottom: '100%', borderRadius: '50%', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
               <svg
-                className="w-full h-full drop-shadow-2xl"
-                viewBox="0 0 200 200"
                 style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
                   transform: `rotate(${rotation}deg)`,
                   transition: spinning ? 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)' : 'none',
-                  filter: 'drop-shadow(0 0 20px rgba(255, 237, 0, 0.5))'
+                  filter: 'drop-shadow(0 0 30px rgba(255, 237, 0, 0.6))'
                 }}
+                viewBox="0 0 200 200"
               >
                 {/* Outer ring */}
-                <circle cx="100" cy="100" r="98" fill="none" stroke="#FFED00" strokeWidth="4" />
+                <circle cx="100" cy="100" r="98" fill="none" stroke="#FFED00" strokeWidth="5" />
                 
                 {prizes.map((prize, i) => {
                   const angle = (360 / prizes.length) * i;
@@ -303,10 +300,8 @@ const App = () => {
                   const y2 = 100 + 95 * Math.sin((nextAngle - 90) * Math.PI / 180);
                   
                   const midAngle = (angle + nextAngle) / 2;
-                  const textX = 100 + 65 * Math.cos((midAngle - 90) * Math.PI / 180);
-                  const textY = 100 + 65 * Math.sin((midAngle - 90) * Math.PI / 180);
-                  const iconX = 100 + 45 * Math.cos((midAngle - 90) * Math.PI / 180);
-                  const iconY = 100 + 45 * Math.sin((midAngle - 90) * Math.PI / 180);
+                  const textX = 100 + 60 * Math.cos((midAngle - 90) * Math.PI / 180);
+                  const textY = 100 + 60 * Math.sin((midAngle - 90) * Math.PI / 180);
                   
                   return (
                     <g key={i}>
@@ -322,35 +317,24 @@ const App = () => {
                       <path
                         d={`M 100 100 L ${x1} ${y1} A 95 95 0 0 1 ${x2} ${y2} Z`}
                         fill="url(#glossGradient)"
-                        opacity="0.3"
+                        opacity="0.4"
                       />
                       
-                      {/* Icon */}
-                      <text
-                        x={iconX}
-                        y={iconY}
-                        fontSize="20"
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        transform={`rotate(${midAngle}, ${iconX}, ${iconY})`}
-                      >
-                        {prize.icon}
-                      </text>
-                      
-                      {/* Text */}
+                      {/* Text - White with black outline for visibility */}
                       <text
                         x={textX}
                         y={textY}
-                        fill={prize.color === '#000000' ? '#FFED00' : '#000000'}
-                        fontSize="6"
+                        fill="white"
+                        fontSize="9"
                         fontWeight="900"
                         textAnchor="middle"
                         transform={`rotate(${midAngle}, ${textX}, ${textY})`}
-                        stroke={prize.color === '#000000' ? '#000000' : '#FFED00'}
-                        strokeWidth="0.5"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        paintOrder="stroke"
                       >
                         {prize.label.split(' ').map((word, wi) => (
-                          <tspan key={wi} x={textX} dy={wi === 0 ? -4 : 7}>
+                          <tspan key={wi} x={textX} dy={wi === 0 ? 0 : 10}>
                             {word}
                           </tspan>
                         ))}
@@ -368,9 +352,9 @@ const App = () => {
                 </defs>
                 
                 {/* Center button */}
-                <circle cx="100" cy="100" r="20" fill="#FFED00" stroke="#FF0000" strokeWidth="4" />
-                <circle cx="100" cy="100" r="15" fill="#FF0000" />
-                <text x="100" y="105" fontSize="16" textAnchor="middle" fill="#FFED00" fontWeight="bold">
+                <circle cx="100" cy="100" r="22" fill="#FFED00" stroke="#FF0000" strokeWidth="5" />
+                <circle cx="100" cy="100" r="17" fill="#FF0000" />
+                <text x="100" y="108" fontSize="20" textAnchor="middle" fill="#FFED00" fontWeight="bold">
                   🔥
                 </text>
               </svg>
@@ -378,29 +362,35 @@ const App = () => {
           </div>
 
           {/* Spin Button */}
-          <div className="text-center mt-8">
+          <div style={{ textAlign: 'center', marginTop: '32px' }}>
             {canSpin ? (
               <button
                 onClick={spin}
                 disabled={spinning}
-                className={`px-16 py-6 rounded-2xl text-3xl font-black border-4 shadow-2xl transform transition ${
-                  spinning
-                    ? 'bg-gray-600 text-gray-400 border-gray-500 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-red-600 to-yellow-400 text-black border-yellow-400 hover:scale-110 hover:shadow-yellow-400/50 active:scale-95 animate-pulse'
-                }`}
-                style={{ textShadow: spinning ? 'none' : '2px 2px 0px rgba(0,0,0,0.5)' }}
+                style={{
+                  padding: '24px 64px',
+                  borderRadius: '16px',
+                  fontSize: '30px',
+                  fontWeight: '900',
+                  border: '4px solid #FFED00',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                  cursor: spinning ? 'not-allowed' : 'pointer',
+                  background: spinning ? '#4B5563' : 'linear-gradient(to right, #FF0000, #FFED00)',
+                  color: spinning ? '#9CA3AF' : '#000000',
+                  textShadow: spinning ? 'none' : '2px 2px 0px rgba(0,0,0,0.5)'
+                }}
               >
                 {spinning ? '🌀 SPINNING...' : '🔥 SPIN NOW! 🔥'}
               </button>
             ) : (
-              <div className="text-center bg-gradient-to-r from-red-600 to-black border-4 border-yellow-400 rounded-2xl p-6">
-                <div className="flex items-center justify-center gap-3 text-yellow-400 mb-2">
+              <div style={{ textAlign: 'center', background: 'linear-gradient(to right, #FF0000, #000000)', border: '4px solid #FFED00', borderRadius: '16px', padding: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', color: '#FFED00', marginBottom: '8px' }}>
                   <Clock size={32} />
-                  <span className="text-3xl font-black">
+                  <span style={{ fontSize: '30px', fontWeight: '900' }}>
                     {getDaysUntilNextSpin()} DAYS
                   </span>
                 </div>
-                <p className="text-white text-xl font-bold">Until your next spin!</p>
+                <p style={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>Until your next spin!</p>
               </div>
             )}
           </div>
@@ -408,22 +398,22 @@ const App = () => {
 
         {/* Win History */}
         {history.length > 0 && (
-          <div className="bg-gradient-to-br from-red-600 to-black rounded-3xl p-6 shadow-2xl border-4 border-yellow-400">
-            <h3 className="text-2xl font-black text-yellow-400 mb-4 flex items-center gap-2">
+          <div style={{ background: 'linear-gradient(to bottom right, #FF0000, #000000)', borderRadius: '24px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '4px solid #FFED00' }}>
+            <h3 style={{ fontSize: '24px', fontWeight: '900', color: '#FFED00', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Gift size={28} />
               YOUR WINS
             </h3>
-            <div className="space-y-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {history.slice().reverse().map((win, i) => (
-                <div key={i} className="bg-black border-2 border-yellow-400 rounded-xl p-4">
-                  <div className="flex justify-between items-start">
+                <div key={i} style={{ background: '#000000', border: '2px solid #FFED00', borderRadius: '12px', padding: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                      <p className="font-bold text-yellow-400 text-lg">{win.prize}</p>
-                      <p className="text-xs text-gray-400">
+                      <p style={{ fontWeight: 'bold', color: '#FFED00', fontSize: '18px' }}>{win.prize}</p>
+                      <p style={{ fontSize: '12px', color: '#9CA3AF' }}>
                         {new Date(win.date).toLocaleDateString()}
                       </p>
                     </div>
-                    <p className="font-mono text-sm font-bold text-white bg-red-600 px-3 py-1 rounded border-2 border-yellow-400">
+                    <p style={{ fontFamily: 'monospace', fontSize: '14px', fontWeight: 'bold', color: 'white', background: '#FF0000', padding: '4px 12px', borderRadius: '4px', border: '2px solid #FFED00' }}>
                       {win.code}
                     </p>
                   </div>
@@ -434,11 +424,11 @@ const App = () => {
         )}
 
         {/* Footer */}
-        <div className="text-center mt-8 pb-8">
-          <p className="text-yellow-400 text-lg font-bold">
+        <div style={{ textAlign: 'center', marginTop: '32px', paddingBottom: '32px' }}>
+          <p style={{ color: '#FFED00', fontSize: '18px', fontWeight: 'bold' }}>
             🎁 VIP TEXT SUBSCRIBERS SPIN EVERY 2 WEEKS! 🎁
           </p>
-          <p className="text-gray-400 text-sm mt-2">
+          <p style={{ color: '#9CA3AF', fontSize: '14px', marginTop: '8px' }}>
             Terms apply. One spin per customer per 2-week period.
           </p>
         </div>
