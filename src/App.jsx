@@ -207,10 +207,10 @@ const App = () => {
 
           <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: isMobile ? '4px solid #FFED00' : '8px solid #FFED00', borderRadius: '24px', padding: isMobile ? '12px' : '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ textAlign: 'center', marginBottom: isMobile ? '12px' : '24px' }}>
-              <h1 style={{ fontSize: isMobile ? '18px' : '48px', fontWeight: '900', color: 'white', marginBottom: isMobile ? '6px' : '8px', textShadow: '4px 4px 0px #FF0000', lineHeight: 1.1 }}>
+              <h1 style={{ fontSize: isMobile ? '28px' : '48px', fontWeight: '900', color: 'white', marginBottom: isMobile ? '6px' : '8px', textShadow: '4px 4px 0px #FF0000', lineHeight: 1.1 }}>
                 🎉 CONGRATULATIONS! 🎉
               </h1>
-              <p style={{ fontSize: isMobile ? '12px' : '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: isMobile ? '4px 8px' : '8px 24px', borderRadius: '9999px' }}>
+              <p style={{ fontSize: isMobile ? '20px' : '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: isMobile ? '4px 8px' : '8px 24px', borderRadius: '9999px' }}>
                 YOU JUST WON
               </p>
             </div>
