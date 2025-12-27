@@ -12,6 +12,14 @@ const App = () => {
   const [history, setHistory] = useState([]);
   const [showWinScreen, setShowWinScreen] = useState(false);
   const [confetti, setConfetti] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const prizes = [
     { label: '$100 GIFT CARD', weight: 0, color: '#FF0000' },
