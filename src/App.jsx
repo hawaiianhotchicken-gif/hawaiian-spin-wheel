@@ -108,13 +108,8 @@ const App = () => {
     const prizeIndex = getWeightedPrize();
     const segmentAngle = 360 / prizes.length;
     
-    // Pointer is at the TOP (270 degrees in our coordinate system since wheel starts at right)
-    // Calculate how much to rotate to bring the winning segment's CENTER under the pointer
-    const offsetToCenter = segmentAngle / 2; // Center of segment
-    const targetAngle = (prizeIndex * segmentAngle) + offsetToCenter;
-    
-    // Rotate 5 full spins plus the amount needed to align the prize at top
-    const targetRotation = (360 * 5) + targetAngle;
+    const degreesToRotate = prizeIndex * segmentAngle;
+    const targetRotation = (360 * 5) - degreesToRotate;
     
     setRotation(targetRotation);
     
