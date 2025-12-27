@@ -233,11 +233,12 @@ const App = () => {
             
             <button
               onClick={() => setShowWinScreen(false)}
+              className="back-button"
               style={{ display: 'block', width: '100%', background: '#000000', color: '#FFED00', fontSize: '20px', fontWeight: 'bold', padding: '16px', borderRadius: '16px', textAlign: 'center', border: '4px solid #FFED00', cursor: 'pointer' }}>
               Back to Wheel
             </button>
 
-            <p style={{ textAlign: 'center', color: 'white', marginTop: '24px', fontSize: '14px', fontWeight: 'bold' }}>
+            <p className="screenshot-text" style={{ textAlign: 'center', color: 'white', marginTop: '24px', fontSize: '14px', fontWeight: 'bold' }}>
               📸 Screenshot this code and show it when ordering!
             </p>
           </div>
@@ -263,40 +264,54 @@ const App = () => {
             font-size: 18px !important;
             padding: 18px 36px !important;
           }
+          
+          /* Results page - dramatically smaller */
           .congrats-title {
-            font-size: 20px !important;
-            line-height: 1.2 !important;
+            font-size: 18px !important;
+            line-height: 1.1 !important;
+            margin-bottom: 6px !important;
           }
           .congrats-subtitle {
-            font-size: 14px !important;
-            padding: 4px 10px !important;
+            font-size: 12px !important;
+            padding: 4px 8px !important;
           }
           .prize-text {
-            font-size: 18px !important;
-            padding: 6px !important;
-            line-height: 1.3 !important;
+            font-size: 16px !important;
+            padding: 4px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 12px !important;
           }
           .code-label {
-            font-size: 11px !important;
+            font-size: 10px !important;
+            margin-bottom: 4px !important;
           }
           .code-text {
-            font-size: 16px !important;
-            padding: 6px 4px !important;
-            letter-spacing: 0.03em !important;
+            font-size: 14px !important;
+            padding: 8px 4px !important;
+            letter-spacing: 0.02em !important;
           }
           .order-button {
-            font-size: 14px !important;
-            padding: 12px 8px !important;
+            font-size: 13px !important;
+            padding: 10px 8px !important;
+          }
+          .back-button {
+            font-size: 12px !important;
+            padding: 8px !important;
           }
           .win-card-padding {
             padding: 12px !important;
           }
           .win-logo {
-            width: 100px !important;
-            height: 100px !important;
+            width: 80px !important;
+            height: 80px !important;
+            margin-bottom: 8px !important;
           }
           .code-container {
-            padding: 16px !important;
+            padding: 12px !important;
+          }
+          .screenshot-text {
+            font-size: 10px !important;
+            margin-top: 12px !important;
           }
         }
       `}</style>
