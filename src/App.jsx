@@ -217,8 +217,7 @@ const App = () => {
               
               <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }} className="code-container">>
                 <p className="code-label" style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
-                <p className="code-text" style={{ fontSize: '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: '16px', borderRadius: '8px', letterSpacing: '0.1em' }}>
-                  {result.code}
+                <p style={{ fontSize: isMobile ? '16px' : '40px', fontFamily: 'monospace', ...
                 </p>
               </div>
             </div>
