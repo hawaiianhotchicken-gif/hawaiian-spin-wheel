@@ -225,7 +225,7 @@ const App = () => {
 
             <div style={{ marginBottom: isMobile ? '12px' : '16px' }}>
               <a
-                href="https://www.hawaiianhotchicken.com/order"
+                href="https://www.hawaiianhotchicken.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'block', width: '100%', background: 'linear-gradient(to right, #FF0000, #FFED00)', color: '#000000', fontSize: isMobile ? '18px' : '24px', fontWeight: '900', padding: isMobile ? '14px 10px' : '24px', borderRadius: '16px', textAlign: 'center', border: '4px solid #000000', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', textDecoration: 'none' }}>
