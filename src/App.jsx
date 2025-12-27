@@ -108,8 +108,9 @@ const App = () => {
     const prizeIndex = getWeightedPrize();
     const segmentAngle = 360 / prizes.length;
     
-    const degreesToRotate = prizeIndex * segmentAngle;
-    const targetRotation = (360 * 5) - degreesToRotate;
+    const segmentCenterOffset = segmentAngle / 2;
+    const degreesToRotate = (prizeIndex * segmentAngle) + segmentCenterOffset;
+    const targetRotation = (360 * 5) - degreesToRotate + 90;
     
     setRotation(targetRotation);
     
@@ -191,57 +192,54 @@ const App = () => {
         ))}
 
         <div style={{ position: 'relative', zIndex: 10, maxWidth: '672px', width: '100%' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? '20px' : '32px' }}>
             <img 
               src="https://i.imgur.com/cEIZbpo.png"
               alt="Hawaiian Hot Chicken"
-              className="win-logo"
-              style={{ width: '200px', height: '200px', margin: '0 auto', display: 'block', marginBottom: '16px' }}
+              style={{ width: isMobile ? '120px' : '200px', height: isMobile ? '120px' : '200px', margin: '0 auto', display: 'block', marginBottom: isMobile ? '12px' : '16px' }}
             />
           </div>
 
-          <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: isMobile ? '4px solid #FFED00' : '8px solid #FFED00', borderRadius: '24px', padding: isMobile ? '12px' : '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
-            <div style={{ textAlign: 'center', marginBottom: isMobile ? '12px' : '24px' }}>
-              <h1 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: '900', color: 'white', marginBottom: isMobile ? '6px' : '8px', textShadow: '4px 4px 0px #FF0000', lineHeight: 1.1 }}>
-                 CONGRATULATIONS! 
+          <div style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: isMobile ? '6px solid #FFED00' : '8px solid #FFED00', borderRadius: '24px', padding: isMobile ? '20px' : '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+            <div style={{ textAlign: 'center', marginBottom: isMobile ? '16px' : '24px' }}>
+              <h1 style={{ fontSize: isMobile ? '24px' : '48px', fontWeight: '900', color: 'white', marginBottom: isMobile ? '8px' : '8px', textShadow: '4px 4px 0px #FF0000', lineHeight: 1.1 }}>
+                🎉 CONGRATULATIONS! 🎉
               </h1>
-              <p style={{ fontSize: isMobile ? '22px' : '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: isMobile ? '4px 8px' : '8px 24px', borderRadius: '9999px' }}>
+              <p style={{ fontSize: isMobile ? '16px' : '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: isMobile ? '6px 12px' : '8px 24px', borderRadius: '9999px' }}>
                 YOU JUST WON
               </p>
             </div>
 
-            <div style={{ background: '#000000', border: '4px solid #FFED00', borderRadius: '16px', padding: '32px', marginBottom: '24px' }}>
-              <p className="prize-text" style={{ fontSize: '40px', fontWeight: '900', textAlign: 'center', color: '#FFED00', marginBottom: '24px', textShadow: '3px 3px 0px #FF0000' }}>
+            <div style={{ background: '#000000', border: '4px solid #FFED00', borderRadius: '16px', padding: isMobile ? '20px' : '32px', marginBottom: isMobile ? '16px' : '24px' }}>
+              <p style={{ fontSize: isMobile ? '22px' : '40px', fontWeight: '900', textAlign: 'center', color: '#FFED00', marginBottom: isMobile ? '16px' : '24px', textShadow: '3px 3px 0px #FF0000', lineHeight: 1.2 }}>
                 {result.prize}
               </p>
               
-              <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: '24px', border: '4px solid white' }} className="code-container">>
-                <p className="code-label" style={{ fontSize: '18px', color: 'white', textAlign: 'center', marginBottom: '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
-                <p style={{ fontSize: isMobile ? '16px' : '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: isMobile ? '8px 4px' : '16px', borderRadius: '8px', letterSpacing: isMobile ? '0.02em' : '0.1em' }}>
+              <div style={{ background: 'linear-gradient(to right, #FF0000, #FFED00)', borderRadius: '12px', padding: isMobile ? '16px' : '24px', border: '4px solid white' }}>
+                <p style={{ fontSize: isMobile ? '13px' : '18px', color: 'white', textAlign: 'center', marginBottom: isMobile ? '6px' : '8px', fontWeight: 'bold' }}>YOUR REDEMPTION CODE</p>
+                <p style={{ fontSize: isMobile ? '20px' : '40px', fontFamily: 'monospace', fontWeight: '900', textAlign: 'center', color: '#000000', background: '#FFED00', padding: isMobile ? '10px 6px' : '16px', borderRadius: '8px', letterSpacing: isMobile ? '0.05em' : '0.1em' }}>
                   {result.code}
                 </p>
               </div>
             </div>
 
-            <div style={{ marginBottom: '16px' }}>
+            <div style={{ marginBottom: isMobile ? '12px' : '16px' }}>
               <a
                 href="https://www.hawaiianhotchicken.com/order"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="order-button"
-                style={{ display: 'block', width: '100%', background: 'linear-gradient(to right, #FF0000, #FFED00)', color: '#000000', fontSize: '24px', fontWeight: '900', padding: '24px', borderRadius: '16px', textAlign: 'center', border: '4px solid #000000', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', textDecoration: 'none' }}>
+                style={{ display: 'block', width: '100%', background: 'linear-gradient(to right, #FF0000, #FFED00)', color: '#000000', fontSize: isMobile ? '18px' : '24px', fontWeight: '900', padding: isMobile ? '14px 10px' : '24px', borderRadius: '16px', textAlign: 'center', border: '4px solid #000000', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', textDecoration: 'none' }}>
                 🔥 ORDER ONLINE NOW 🔥
               </a>
             </div>
             
             <button
               onClick={() => setShowWinScreen(false)}
-              className="back-button"
-              style={{ display: 'block', width: '100%', background: '#000000', color: '#FFED00', fontSize: '20px', fontWeight: 'bold', padding: '16px', borderRadius: '16px', textAlign: 'center', border: '4px solid #FFED00', cursor: 'pointer' }}>
+              style={{ display: 'block', width: '100%', background: '#000000', color: '#FFED00', fontSize: isMobile ? '16px' : '20px', fontWeight: 'bold', padding: isMobile ? '12px' : '16px', borderRadius: '16px', textAlign: 'center', border: '4px solid #FFED00', cursor: 'pointer' }}>
               Back to Wheel
             </button>
 
-            <p className="screenshot-text" style={{ textAlign: 'center', color: 'white', marginTop: '24px', fontSize: '14px', fontWeight: 'bold' }}>
+            <p style={{ textAlign: 'center', color: 'white', marginTop: isMobile ? '16px' : '24px', fontSize: isMobile ? '12px' : '14px', fontWeight: 'bold' }}>
               📸 Screenshot this code and show it when ordering!
             </p>
           </div>
@@ -261,65 +259,7 @@ const App = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000000', padding: '16px' }}>
-      <style>{`
-        @media (max-width: 768px) {
-          .spin-button {
-            font-size: 18px !important;
-            padding: 18px 36px !important;
-          }
-          
-          /* Results page - dramatically smaller */
-          .congrats-title {
-            font-size: 18px !important;
-            line-height: 1.1 !important;
-            margin-bottom: 6px !important;
-          }
-          .congrats-subtitle {
-            font-size: 12px !important;
-            padding: 4px 8px !important;
-          }
-          .prize-text {
-            font-size: 16px !important;
-            padding: 4px !important;
-            line-height: 1.2 !important;
-            margin-bottom: 12px !important;
-          }
-          .code-label {
-            font-size: 10px !important;
-            margin-bottom: 4px !important;
-          }
-          .code-text {
-            font-size: 14px !important;
-            padding: 8px 4px !important;
-            letter-spacing: 0.02em !important;
-          }
-          .order-button {
-            font-size: 13px !important;
-            padding: 10px 8px !important;
-          }
-          .back-button {
-            font-size: 12px !important;
-            padding: 8px !important;
-          }
-          .win-card-padding {
-            padding: 12px !important;
-          }
-          .win-logo {
-            width: 80px !important;
-            height: 80px !important;
-            margin-bottom: 8px !important;
-          }
-          .code-container {
-            padding: 12px !important;
-          }
-          .screenshot-text {
-            font-size: 10px !important;
-            margin-top: 12px !important;
-          }
-        }
-      `}</style>
       <div style={{ maxWidth: '672px', margin: '0 auto' }}>
-        {/* Logo Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px', paddingTop: '32px' }}>
           <img 
             src="https://i.imgur.com/cEIZbpo.png"
@@ -334,15 +274,12 @@ const App = () => {
           </p>
         </div>
 
-        {/* Wheel Container */}
         <div style={{ background: 'linear-gradient(to bottom right, #FF0000, #000000, #FF0000)', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', marginBottom: '24px', border: '8px solid #FFED00' }}>
           <div style={{ position: 'relative', width: '100%', maxWidth: '400px', margin: '0 auto' }}>
-            {/* Pointer */}
             <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%) translateY(-24px)', zIndex: 20 }}>
               <div style={{ width: '0', height: '0', borderLeft: '25px solid transparent', borderRight: '25px solid transparent', borderTop: '40px solid #FFED00', filter: 'drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15))' }}></div>
             </div>
             
-            {/* Glossy Wheel */}
             <div style={{ position: 'relative', paddingBottom: '100%', borderRadius: '50%', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
               <svg
                 style={{
@@ -357,7 +294,6 @@ const App = () => {
                 }}
                 viewBox="0 0 200 200"
               >
-                {/* Outer ring */}
                 <circle cx="100" cy="100" r="98" fill="none" stroke="#FFED00" strokeWidth="5" />
                 
                 {prizes.map((prize, i) => {
@@ -375,7 +311,6 @@ const App = () => {
                   
                   return (
                     <g key={i}>
-                      {/* Segment */}
                       <path
                         d={`M 100 100 L ${x1} ${y1} A 95 95 0 0 1 ${x2} ${y2} Z`}
                         fill={prize.color}
@@ -383,14 +318,12 @@ const App = () => {
                         strokeWidth="3"
                       />
                       
-                      {/* Glossy overlay */}
                       <path
                         d={`M 100 100 L ${x1} ${y1} A 95 95 0 0 1 ${x2} ${y2} Z`}
                         fill="url(#glossGradient)"
                         opacity="0.4"
                       />
                       
-                      {/* Text - White with black outline for visibility */}
                       <text
                         x={textX}
                         y={textY}
@@ -413,7 +346,6 @@ const App = () => {
                   );
                 })}
                 
-                {/* Glossy gradient definition */}
                 <defs>
                   <radialGradient id="glossGradient" cx="30%" cy="30%">
                     <stop offset="0%" stopColor="white" stopOpacity="0.8" />
@@ -421,7 +353,6 @@ const App = () => {
                   </radialGradient>
                 </defs>
                 
-                {/* Center button */}
                 <circle cx="100" cy="100" r="22" fill="#FFED00" stroke="#FF0000" strokeWidth="5" />
                 <circle cx="100" cy="100" r="17" fill="#FF0000" />
                 <text x="100" y="108" fontSize="20" textAnchor="middle" fill="#FFED00" fontWeight="bold">
@@ -431,17 +362,15 @@ const App = () => {
             </div>
           </div>
 
-          {/* Spin Button */}
           <div style={{ textAlign: 'center', marginTop: '32px' }}>
             {canSpin ? (
               <button
                 onClick={spin}
                 disabled={spinning}
-                className="spin-button"
                 style={{
-                  padding: '24px 64px',
+                  padding: isMobile ? '18px 36px' : '24px 64px',
                   borderRadius: '16px',
-                  fontSize: '30px',
+                  fontSize: isMobile ? '18px' : '30px',
                   fontWeight: '900',
                   border: '4px solid #FFED00',
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -468,7 +397,6 @@ const App = () => {
           </div>
         </div>
 
-        {/* Win History */}
         {history.length > 0 && (
           <div style={{ background: 'linear-gradient(to bottom right, #FF0000, #000000)', borderRadius: '24px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '4px solid #FFED00' }}>
             <h3 style={{ fontSize: '24px', fontWeight: '900', color: '#FFED00', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -495,7 +423,6 @@ const App = () => {
           </div>
         )}
 
-        {/* Footer */}
         <div style={{ textAlign: 'center', marginTop: '32px', paddingBottom: '32px' }}>
           <p style={{ color: '#FFED00', fontSize: '18px', fontWeight: 'bold' }}>
             🎁 VIP TEXT SUBSCRIBERS SPIN EVERY 2 WEEKS! 🎁
