@@ -110,7 +110,7 @@ const App = () => {
     
     const segmentCenterOffset = segmentAngle / 2;
     const degreesToRotate = (prizeIndex * segmentAngle) + segmentCenterOffset;
-    const targetRotation = (360 * 5) - degreesToRotate + 90;
+    const targetRotation = (360 * 5) - degreesToRotate - (segmentAngle * 2) + 90;
     
     setRotation(targetRotation);
     
