@@ -207,7 +207,7 @@ const App = () => {
 
           <div className="win-card-padding" style={{ background: 'linear-gradient(to bottom right, #FFED00, #FF0000, #000000)', border: '8px solid #FFED00', borderRadius: '24px', padding: '32px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <h1 className="congrats-title" style={{ fontSize: '48px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
+              <h1 className="congrats-title" style={{ fontSize: '24px', fontWeight: '900', color: 'white', marginBottom: '8px', textShadow: '4px 4px 0px #FF0000' }}>
                 🎉 CONGRATULATIONS! 🎉
               </h1>
               <p className="congrats-subtitle" style={{ fontSize: '30px', fontWeight: 'bold', color: '#000000', background: '#FFED00', display: 'inline-block', padding: '8px 24px', borderRadius: '9999px' }}>
